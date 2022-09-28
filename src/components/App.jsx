@@ -12,13 +12,13 @@ export const App = () => {
 
   const incrementValue = name => {
     if (name === 'good') {
-      return setGood(good + 1);
+      return setGood(prevState => prevState + 1);
     }
     if (name === 'bad') {
-      return setBad(bad + 1);
+      return setBad(prevState => prevState + 1);
     }
     if (name === 'neutral') {
-      return setNeutral(neutral + 1);
+      return setNeutral(prevState => prevState + 1);
     }
   };
 
