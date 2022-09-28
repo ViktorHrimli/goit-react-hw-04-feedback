@@ -11,14 +11,20 @@ export const App = () => {
   const [bad, setBad] = useState(0);
 
   const incrementValue = name => {
-    if (name === 'good') {
-      return setGood(prevState => prevState + 1);
-    }
-    if (name === 'bad') {
-      return setBad(prevState => prevState + 1);
-    }
-    if (name === 'neutral') {
-      return setNeutral(prevState => prevState + 1);
+    switch (name) {
+      case 'good':
+        setGood(prevState => prevState + 1);
+        break;
+      case 'neutral':
+        setNeutral(prevState => prevState + 1);
+        break;
+
+      case 'bad':
+        setBad(prevState => prevState + 1);
+        break;
+
+      default:
+        return;
     }
   };
 
