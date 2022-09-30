@@ -1,32 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box } from 'commonStyle/Common.styled';
 import { HederTitleFeedback } from './Feedback.styled';
 import { Buttons } from './Buttons/Buttons';
 import { Statistics } from './Statistic/Statistics';
 import { Section } from './Feedback.styled';
+import { useReducer } from 'react';
+
+function nameReducer(state, actions) {
+  switch (actions.type) {
+    case 'good':
+      return { ...state, good: state.good + actions.payload };
+
+    case 'neutral':
+      return { ...state, neutral: state.neutral + actions.payload };
+
+    case 'bad':
+      return { ...state, bad: state.bad + actions.payload };
+
+    default:
+      return;
+  }
+}
 
 export const App = () => {
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
-
-  const incrementValue = name => {
-    switch (name) {
-      case 'good':
-        setGood(prevState => prevState + 1);
-        break;
-      case 'neutral':
-        setNeutral(prevState => prevState + 1);
-        break;
-
-      case 'bad':
-        setBad(prevState => prevState + 1);
-        break;
-
-      default:
-        return;
-    }
-  };
+  const [{ good, neutral, bad }, dispatch] = useReducer(nameReducer, {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  });
 
   const countTotalFeedback = (good, neutral, bad) => {
     return good + neutral + bad;
@@ -52,7 +53,7 @@ export const App = () => {
           alignItems="center"
           gridGap="20px"
         >
-          <Buttons options={KEYS} onLeaveFeedback={incrementValue} />
+          <Buttons options={KEYS} onLeaveFeedback={dispatch} />
         </Box>
       </Section>
       <Section title="Statistics">

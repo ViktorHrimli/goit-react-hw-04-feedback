@@ -3,7 +3,11 @@ import { Btn } from './Buttons.styled';
 
 export const Buttons = ({ options, onLeaveFeedback }) => {
   return options.map((key, idx) => (
-    <Btn key={idx} type="button" onClick={_ => onLeaveFeedback(key)}>
+    <Btn
+      key={idx}
+      type="button"
+      onClick={_ => onLeaveFeedback({ type: key, payload: 1 })}
+    >
       {key}
     </Btn>
   ));
